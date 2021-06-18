@@ -1,0 +1,41 @@
+---
+# tasks file for zabbix_agent
+- block:
+    - name: zabbix_agent | Adding a Zabbix repository for RedHat
+      yum:
+        name:
+          - "https://repo.zabbix.com/zabbix/{{ zabbix_agent_version }}/rhel/{{ ansible_distribution_major_version }}/x86_64/zabbix-release-{{ zabbix_agent_version }}-1.el{{ ansible_distribution_major_version }}.noarch.rpm"
+        state: present
+
+    - name: zabbix_agent | Install zabbix-agent for RedHat
+      yum:
+        name: zabbix-agent
+        state: present
+        update_cache: yes
+  when: ansible_os_family == "RedHat"
+
+- block:
+    - name: zabbix_agent | Adding Zabbix repository for Ubuntu
+      template:
+        src: "{{ zabbix_agent_templates_path }}/zabbix.list.j2"
+        dest: "/etc/apt/sources.list.d/zabbix.list"
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: zabbix_agent | Install zabbix-agent for Ubuntu
+      apt:
+        name: zabbix-agent
+        state: present
+        update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: zabbix_agent | Configure zabbix_agentd.conf
+  template:
+    src: "{{ zabbix_agent_templates_path }}/zabbix_agentd.conf.j2"
+    dest: "/etc/zabbix/zabbix_agentd.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart service zabbix-agent

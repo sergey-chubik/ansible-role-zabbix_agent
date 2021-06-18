@@ -1,0 +1,23 @@
+---
+# defaults file for zabbix_agent
+zabbix_agent_version: 5.0
+zabbix_agent_templates_path: "{{ role_path }}/templates"
+zabbix_agent_zabbix_server_name: zabbix.ekaterinburg.fsin.uis
+zabbix_agent_hostname: "{{ ansible_fqdn }}"
+
+#  By default configuration variables
+zabbix_agent_pidfile: /var/run/zabbix/zabbix_agentd.pid
+zabbix_agent_logfile: /var/log/zabbix/zabbix_agentd.log
+zabbix_agent_logfilesize: 100
+zabbix_agent_listenip: "{{ ansible_default_ipv4.address }}"
+zabbix_agent_os_family: "{{ ansible_os_family }}"
+zabbix_agent_include: "/etc/zabbix/zabbix_agentd.d/*.conf"
+
+# Windows Related
+# zabbix_win_package: zabbix_agent-{{ zabbix_version_long }}-windows-i386.zip
+# zabbix_win_download_url: https://www.zabbix.com/downloads
+# zabbix_win_download_link: "{{ zabbix_win_download_url }}/{{ zabbix_version_long }}/{{ zabbix_win_package }}"
+# zabbix_win_install_dir: 'C:\Zabbix'
+zabbix_agent_win_logfile: 'C:\zabbix\zabbix_agentd.log'
+zabbix_agent_win_include: 'C:\zabbix\zabbix_agent.d\'
+# zabbix_agent_win_svc_recovery: True
