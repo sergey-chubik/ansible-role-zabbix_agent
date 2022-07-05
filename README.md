@@ -11,14 +11,16 @@ None.
 Role Variables
 --------------
 
-Доступные переменные перечислены ниже вместе со значениями по умолчанию (см. `defaults/main.yml`).
+Доступные переменные перечислены ниже вместе со значениями по умолчанию в файле **defaults/main.yml**.
 
 Dependencies
 ------------
 
-Также необходимо открыть следующие порты в firewall
-  - port: 10050-10051/tcp
-  - port: 161-162/udp
+Также необходимо открыть следующие порты в firewall:
+```
+- port: 10050-10051/tcp
+- port: 161-162/udp
+```
 
 Example Playbook
 ----------------
@@ -37,4 +39,4 @@ BSD
 Author Information
 ------------------
 
-Chubik Sergey, chubik@ekaterinburg.fsin.uis.
+Chubik Sergey.
